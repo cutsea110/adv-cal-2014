@@ -1,5 +1,6 @@
 module Monoid where
 
+open import Data.List
 open import Data.Nat
 open import Data.Product
 open import Function using (_∘_; id; const)
@@ -71,8 +72,6 @@ record IsMonoid (A : Set) (_∙_ : Op₂ A) (e : A) : Set where
                x*1≡x : Right-Id _*_ 1
                x*1≡x zero = refl
                x*1≡x (suc x) = cong suc (x*1≡x x)
-
-open import Data.List
 
 List++-isSemigroup : {a : Set} → IsSemiGroup (List a) _++_
 List++-isSemigroup = record { assoc = List++-assoc }
