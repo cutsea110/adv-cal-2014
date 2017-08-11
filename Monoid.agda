@@ -72,6 +72,25 @@ record IsMonoid (A : Set) (_∙_ : Op₂ A) (e : A) : Set where
                x*1≡x zero = refl
                x*1≡x (suc x) = cong suc (x*1≡x x)
 
+open import Data.List
+
+List++-isSemigroup : {a : Set} → IsSemiGroup (List a) _++_
+List++-isSemigroup = record { assoc = List++-assoc }
+  where
+    List++-assoc : Assoc _++_
+    List++-assoc [] y z = refl
+    List++-assoc (x ∷ xs) y z rewrite List++-assoc xs y z = refl
+
+List++[]-isMonoid : {a : Set} → IsMonoid (List a) _++_ []
+List++[]-isMonoid = record { isSemigroup = List++-isSemigroup
+                           ; identity = []++xs≡xs , xs++[]≡xs
+                           }
+                  where
+                    []++xs≡xs : Left-Id _++_ []
+                    []++xs≡xs xs = refl
+                    xs++[]≡xs : Right-Id _++_ []
+                    xs++[]≡xs [] = refl
+                    xs++[]≡xs (x ∷ xs) rewrite xs++[]≡xs xs = refl
 
 record Endo (A : Set) : Set where
   constructor endo
