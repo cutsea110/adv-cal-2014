@@ -206,3 +206,9 @@ postulate
 foo-isMonoid : {A : Set} → IsMonoid ((Dual (A → ℕ)) × (A → (Dual ℕ))) (⇄ (↦ _+_) |><| ↦ (⇄ _+_)) ((dual (const 0)) , (const (dual 0)))
 foo-isMonoid = ×-isMonoid (Dual-isMonoid (↦-isMonoid ℕ+0-isMonoid))
                            (↦-isMonoid (Dual-isMonoid ℕ+0-isMonoid))
+
+bar-isMonoid : {A : Set} → IsMonoid ((Dual (List (A → ℕ))) × (A → (List (Dual ℕ)))) (⇄ _++_ |><| ↦ _++_) ((dual []) , (const []))
+bar-isMonoid = ×-isMonoid (Dual-isMonoid List++[]-isMonoid) (↦-isMonoid List++[]-isMonoid)
+
+buz-isMonoid : IsMonoid (ℕ × ℕ) (_+_ |><| _*_) (0 , 1)
+buz-isMonoid = ×-isMonoid ℕ+0-isMonoid ℕ*1-isMonoid
