@@ -2,7 +2,7 @@ module wit4 where
 
 -- View
 
-open import Data.Nat hiding (erase)
+open import Data.Nat
 
 -- view data type
 data Parity : ℕ → Set where
