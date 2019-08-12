@@ -4,7 +4,8 @@ open import Data.List
 open import Data.Nat
 open import Data.Product
 open import Function using (_∘_; id; const)
-open import Relation.Binary.PropositionalEquality as PropEq
+open import Relation.Binary.PropositionalEquality as PropEq hiding (Extensionality)
+open import Axiom.Extensionality.Propositional
 
 Op₂ : Set → Set
 Op₂ A = A → A → A
@@ -177,7 +178,7 @@ _|><|_ : {A B : Set} → Op₂ A → Op₂ B → Op₂ (A × B)
       , right-id {_⊕_ = _⊕_}{_⊗_ = _⊗_} (proj₂ prf₁) (proj₂ prf₂)
 
 postulate
-  extensionality : ∀ {a b} → PropEq.Extensionality a b
+  extensionality : ∀ {a b} → Extensionality a b
 
 ↦ : {A B : Set} → Op₂ B → Op₂ (A → B)
 ↦ _⊕_ f g x = f x ⊕ g x
