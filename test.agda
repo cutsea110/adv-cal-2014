@@ -2,7 +2,7 @@ module test where
 
 open import Data.List hiding (filter; drop)
 open import Data.Nat hiding (_<_)
-open import Data.Bool
+open import Data.Bool hiding (_<_)
 
 _<_ : ℕ → ℕ → Bool
 zero < zero = false

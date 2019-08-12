@@ -2,7 +2,7 @@ module wit2 where
 
 -- parameter vs indices
 
-open import Data.Bool
+open import Data.Bool hiding (_<_; _≤_)
 open import Data.Nat using (ℕ; zero; suc)
 
 -- parameter
