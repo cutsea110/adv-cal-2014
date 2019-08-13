@@ -1,27 +1,31 @@
 module ffi where
 
 data Unit : Set where
-  unit : Unit
+  tt : Unit
   
-{-# COMPILED_DATA Unit () ()  #-}
+{-# COMPILE GHC Unit = data () (()) #-}
 
 data Maybe (A : Set) : Set where
   nothing : Maybe A
   just : A → Maybe A
 
-{-# COMPILED_DATA Maybe Maybe Nothing Just  #-}
+{-# COMPILE GHC Maybe = data Maybe (Nothing | Just) #-}
 
 postulate IO : Set → Set
-{-# COMPILED_TYPE IO IO #-}
+{-# BUILTIN IO IO #-}
+{-# COMPILE GHC IO = type IO #-}
 
 open import Data.String
+
+{-# FOREIGN GHC import qualified System.IO as IO #-}
+{-# FOREIGN GHC import qualified Data.Text.IO as Text #-}
+
 postulate
   putStrLn : String → IO Unit
-{-# COMPILED putStrLn putStrLn #-}
+{-# COMPILE GHC putStrLn = Text.putStrLn #-}
 
-{-# IMPORT System.IO #-}
 postulate printError : String → IO Unit
-{-# COMPILED printError (hPutStrLn stderr) #-}
+{-# COMPILE GHC printError = (Text.hPutStrLn IO.stderr) #-}
 
 main : IO Unit
 main = putStrLn "Hello, World!"
